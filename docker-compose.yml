@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysqldb:
+      build: ./db_
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: example
+      volumes:
+        - ./db_/data:/var/lib/mysql
+
+
+  app:
+    build: .
+    ports: 
+      - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - mysqldb
+    
+
+
+  
+  
